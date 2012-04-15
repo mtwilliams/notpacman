@@ -1,4 +1,9 @@
+CLIENT = true
+SERVER = false
+
+require 'debug.lua'
 require 'class.lua'
+require 'sprite.lua'
 require 'resources.lua'
 require 'screen_manager.lua'
 require 'screens/main_menu.lua'

@@ -1,0 +1,6 @@
+require 'components.lua'
+require 'entity.lua'
+require 'board.lua'
+require 'cherry.lua'
+require 'ghost.lua'
+require 'pacman.lua'
