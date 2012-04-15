@@ -1,11 +1,14 @@
 pacman = class(entity)
 
+local MOVE_FRAME_TIME = 1 / 9
+
 function pacman:new( x, y, rotation )
     entity.new(self, x, y, rotation)
 
     -- TODO: physics component
     self.x_vel = 0.0
     self.y_vel = 0.0
+    self.frame_time = MOVE_FRAME_TIME
 
     if CLIENT then
         self._drawable = components.drawable(resources.pacman, { r = 255, g = 191, b = 0, a = 255 })
@@ -21,14 +24,18 @@ local move_speed = 128
 function pacman:_on_key_pressed( key )
     if key == 'up' then
         self.y_vel = -move_speed
+        self.frame_time = 0.0
     elseif key == 'down' then
         self.y_vel = move_speed
+        self.frame_time = 0.0
     end
 
     if key == 'left' then
         self.x_vel = -move_speed
+        self.frame_time = 0.0
     elseif key == 'right' then
         self.x_vel = move_speed
+        self.frame_time = 0.0
     end
 end
 
@@ -45,6 +52,15 @@ function pacman:update( dt )
         if self.x_vel ~= 0 or self.y_vel ~= 0 then
             local rotation = math.deg(math.atan2(self.y_vel, self.x_vel))
             self._drawable:set_rotation(rotation)
+
+            self.frame_time = self.frame_time - dt
+            if self.frame_time <= 0.0 then
+                self._drawable:get_sprite():next_frame(true)
+                self.frame_time = MOVE_FRAME_TIME
+            end
+        else
+            self._drawable:get_sprite():set_frame(1)
+            self.frame_time = MOVE_FRAME_TIME
         end
     end
 end

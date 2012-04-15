@@ -13,6 +13,15 @@ function sprite:new( sprite_sheet, frames )
     end
 end
 
+function sprite:next_frame( wrap )
+    if self.frame == #self.frames then
+        if not wrap then return end
+        self.frame = 1
+    else
+        self.frame = self.frame + 1
+    end
+end
+
 function sprite:set_frame( frame )
     if frame > #self.frames or frame < 1 then
         return
