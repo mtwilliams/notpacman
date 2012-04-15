@@ -5,7 +5,9 @@ singleplayer = class(screen)
 
 function singleplayer:new()
     self.scene = scene()
+    self.scene:add_entity(board())
     self.scene:add_entity(pacman(love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5, 0.0))
+    self.scene:add_entity(ghost(love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5 - 64))
 end
 
 function singleplayer:update( dt )

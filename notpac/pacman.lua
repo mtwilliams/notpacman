@@ -18,6 +18,19 @@ function pacman:new( x, y, rotation )
         self._key_listener = components.key_listener(pacman._on_key_pressed, pacman._on_key_released)
         self:attach_component(self._key_listener)
     end
+
+    self._physical = components.physical({
+        type = "circle",
+        
+        radius = 16,
+
+        on_collide = function ( self, body_a, body_b )
+            print('* pacman collision')
+            return true
+        end
+    })
+
+    self:attach_component(self._physical)
 end
 
 local move_speed = 128

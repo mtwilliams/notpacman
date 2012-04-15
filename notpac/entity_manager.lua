@@ -9,9 +9,9 @@ end
 
 function entity_manager:add_entity( entity )
     local eid = self.next_eid
+    self.next_eid = self.next_eid + 1
     print('* entity_manager:add_entity()\n -> ' .. eid)
     
-    next_eid = self.next_eid + 1
     entity._eid = eid
     self.entities[eid] = entity
     return eid
@@ -31,8 +31,8 @@ function entity_manager:update( dt )
     end
 end
 
-function entity_manager:for_each_entity( callback )
+function entity_manager:for_each_entity( inst, callback )
     for i,v in ipairs(self.entities) do
-        callback(i, v)
+        callback(inst, i, v)
     end
 end

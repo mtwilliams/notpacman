@@ -4,5 +4,18 @@
 		{
 			"path": "notpac"
 		}
-	]
+	],
+
+    "build_systems":
+    [
+        {
+            "name": "Love2D",
+            "working_dir": "${project_path}",
+            
+            "windows":
+            {
+                "cmd": ["run_win.bat"]
+            }
+        }
+    ]
 }
