@@ -32,14 +32,16 @@ function resolvers.circle.get_distance( entity, x, y )
 end
 
 function resolvers.circle.resolve( a, b )
-    local body_a = a:get_component('physical'):get_body()
-    local body_b = b:get_component('physical'):get_body()
+    local phys_a = a:get_component('physical')
+    local body_a = phys_a:get_body()
+    local phys_b = b:get_component('physical')
+    local body_b = phys_b:get_body()
     local b_resolver = resolvers[body_b.type]
 
     local dist = b_resolver.get_distance(b, a.x, a.y)
     if dist > body_a.radius then return end
 
-    if not body_a:on_collide(b) then return end
+    if not phys_a:on_collide(b) then return end
 
     local overlap = resolvers.circle.get_overlap(a, b)
     a.x = a.x + overlap.x

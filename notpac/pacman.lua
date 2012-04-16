@@ -5,13 +5,19 @@ local MOVE_FRAME_TIME = 1 / 9
 function pacman:new( x, y, rotation )
     entity.new(self, x, y, rotation)
 
+    self.start = { x = x, y = y, rotation = rotation }
+    self.is_pacman = true
+    self.is_invulnerable = false
+    self.lives = 3
+    self.score = 0
+
     -- TODO: physics component
     self.x_vel = 0.0
     self.y_vel = 0.0
     self.frame_time = MOVE_FRAME_TIME
 
     if CLIENT then
-        self._drawable = components.drawable(resources.pacman, { r = 255, g = 191, b = 0, a = 255 })
+        self._drawable = components.drawable(resources.pacman, { r = 255, g = 255, b = 0, a = 255 })
         self._drawable:set_rotation(rotation)
         self:attach_component(self._drawable)
 
@@ -24,13 +30,25 @@ function pacman:new( x, y, rotation )
         
         radius = 16,
 
-        on_collide = function ( self, body_a, body_b )
-            print('* pacman collision')
+        on_collide = function ( self, other )
+            if other.is_ghost then
+                screen_manager.get_current_screen():pacman_hit_ghost(self, other)
+                return false
+            end
+            
             return true
         end
     })
 
     self:attach_component(self._physical)
+end
+
+function pacman:reset()
+    if CLIENT then
+        self.x = self.start.x
+        self.y = self.start.y
+        self.rotation = self.start.rotation
+    end
 end
 
 local move_speed = 128

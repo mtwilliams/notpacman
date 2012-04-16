@@ -12,6 +12,9 @@ function resources.load()
     print('* loading \'data/menu_font.ttf\'')
     resources.menu_font = love.graphics.newFont('data/default_font.ttf', 24)
 
+    print('* loading \'data/game_font.ttf\'')
+    resources.game_font = love.graphics.newFont('data/default_font.ttf', 24)
+
     print('* loading \'data/sprites.png\'')
     resources.sprites = love.graphics.newImage('data/sprites.png')
     resources.sprites:setFilter('nearest', 'nearest')

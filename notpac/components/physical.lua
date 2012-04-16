@@ -13,6 +13,10 @@ function components.physical:get_body()
     return self.body
 end
 
+function components.physical:on_collide( other )
+    return self.body.on_collide(self._entity, other)
+end
+
 local debug_drawers = {}
 function debug_drawers.circle ( phys_component )
     local entity = phys_component._entity
