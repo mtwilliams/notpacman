@@ -51,9 +51,6 @@ function scene:update( dt )
 end
 
 function scene:draw()
-    love.graphics.setBackgroundColor(110, 110, 110)
-    love.graphics.clear()
-
     local draw_entity = function ( self, eid, entity )
         local drawable_component = entity:get_component('drawable')
         if not drawable_component then return end

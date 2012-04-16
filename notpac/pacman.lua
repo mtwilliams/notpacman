@@ -17,7 +17,11 @@ function pacman:new( x, y, rotation )
     self.frame_time = MOVE_FRAME_TIME
 
     if CLIENT then
-        self._drawable = components.drawable(resources.pacman, { r = 255, g = 255, b = 0, a = 255 })
+        self._drawable = components.drawable(sprite(resources.sprites, {
+            { x = 0,  y = 0, width = 16, height = 16, scale = 2 },
+            { x = 16, y = 0, width = 16, height = 16, scale = 2 },
+        }), { r = 255, g = 255, b = 0, a = 255 })
+
         self._drawable:set_rotation(rotation)
         self:attach_component(self._drawable)
 
@@ -28,7 +32,7 @@ function pacman:new( x, y, rotation )
     self._physical = components.physical({
         type = "circle",
         
-        radius = 16,
+        radius = 15,
 
         on_collide = function ( self, other )
             if other.is_ghost then

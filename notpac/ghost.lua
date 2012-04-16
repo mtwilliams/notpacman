@@ -31,7 +31,10 @@ function ghost:new( x, y, type )
 
     if CLIENT then
         local color = TYPES[type].color
-        self._drawable = components.drawable(resources.ghost, { r = color.r, g = color.g, b = color.b, a = 255 })
+        self._drawable = components.drawable(sprite(resources.sprites, {
+            { x = 0,  y = 32, width = 16, height = 16, scale = 2 },
+        }), { r = color.r, g = color.g, b = color.b, a = 255 })
+
         self._drawable:set_rotation(0.0)
         self:attach_component(self._drawable)
     end

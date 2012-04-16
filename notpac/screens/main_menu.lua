@@ -28,15 +28,15 @@ function main_menu:update( dt )
 end
 
 function main_menu:draw()
-    love.graphics.setBackgroundColor(54, 69, 79)
+    love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.clear()
     love.graphics.setFont(resources.title_font)
 
-    love.graphics.setColor(255, 191, 0, 255 * self.title_anim * 0.2)
+    love.graphics.setColor(255, 255, 0, 255 * self.title_anim * 0.2)
     love.graphics.print("not pacman", self.title_x, self.title_y, 0, 1.0, 1.0)
 
     love.graphics.setFont(resources.menu_font)
-    love.graphics.setColor(255, 191, 0, 255)
+    love.graphics.setColor(255, 255, 255, 255)
     
     local item_y = self.options_y
     local item_ys = resources.menu_font:getHeight() + 8
@@ -44,15 +44,13 @@ function main_menu:draw()
         local item_x = (love.graphics.getWidth() - resources.menu_font:getWidth(v.option)) * 0.5
         
         if self.selection == i then
-            love.graphics.setColor(255, 0, 0, 255)
+            love.graphics.setColor(255, 255, 0, 255)
             love.graphics.print(v.option, item_x, item_y, 0, 1.0, 1.0)
-            love.graphics.setColor(255, 191, 0, 255)
+            love.graphics.setColor(255, 255, 255, 255)
         else
             love.graphics.print(v.option, item_x, item_y, 0, 1.0, 1.0)
         end
 
-        love.graphics.print(i, item_x - 32, item_y, 0, 1.0, 1.0)
-        
         item_y = item_y + item_ys
     end
 

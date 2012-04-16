@@ -4,6 +4,10 @@ require 'scene.lua'
 singleplayer = class(screen)
 
 function singleplayer:new()
+    self.life_sprite = sprite(resources.sprites, {
+        { x = 16, y = 0, width = 16, height = 16, scale = 2 },
+    })
+
     self:create_scene()
 end
 
@@ -58,6 +62,9 @@ function singleplayer:update( dt )
 end
 
 function singleplayer:draw()
+    love.graphics.setBackgroundColor(0, 0, 0)
+    love.graphics.clear()
+    
     self.scene:draw()
 
     -- score
@@ -70,10 +77,7 @@ function singleplayer:draw()
 
     -- lives
     love.graphics.setColor(255, 255, 0, 255)
-    local li = resources.pacman
-    li:set_frame(2)
-    
-    for i=1,self._pacman.lives do li:draw(love.graphics.getWidth() - 64, love.graphics.getHeight() - 148 + (3 - i) * 48) end
+    for i=1,self._pacman.lives do self.life_sprite:draw(love.graphics.getWidth() - 64, love.graphics.getHeight() - 148 + (3 - i) * 48) end
 end
 
 function singleplayer:key_pressed( key )
